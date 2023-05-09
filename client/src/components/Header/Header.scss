@@ -1,0 +1,62 @@
+@import "./../../styles/base/variables";
+
+.header__container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+  .left {
+    justify-self: flex-start;
+  }
+  .center {
+    justify-self: center;
+    form {
+      position: relative;
+      @media screen and (max-width: $small-screen) {
+        display: none;
+      }
+      input {
+        border: none;
+        outline: none;
+        background-color: #f6f6f6;
+        padding: 0.4rem 1.2rem;
+        border-radius: 1rem;
+        width: 20rem;
+        @media screen and (max-width: $medium-screen) {
+          width: 15rem;
+        }
+      }
+      svg {
+        position: absolute;
+        top: 0.3rem;
+        right: 0.4rem;
+        cursor: pointer;
+      }
+    }
+  }
+  .right {
+    justify-self: flex-end;
+    .cart__icon {
+      position: relative;
+      cursor: pointer;
+      svg {
+        font-size: 1.4rem;
+      }
+      span {
+        position: absolute;
+        border-radius: 50%;
+        color: $color-white;
+        background-color: $color-primary;
+        width: 1rem;
+        height: 1rem;
+        font-size: 0.6rem;
+        top: -10px;
+        right: -10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

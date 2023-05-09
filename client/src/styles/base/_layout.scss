@@ -1,0 +1,109 @@
+@import "./variables";
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $color-bg;
+  color: $color-primary;
+  line-height: 1.7;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.25) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+  background-size: 4px 4px;
+
+  /* ::selection {
+    background-color: $color-highlight;
+    color: $color-white;
+  } */
+
+  .container {
+    width: $container-width-lg;
+    margin: 0 auto;
+    @media screen and (max-width: $medium-screen) {
+      width: $container-width-md;
+    }
+    @media screen and (max-width: $small-screen) {
+      width: $container-width-sm;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 500;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  section {
+    margin-top: 8rem;
+    @media screen and (max-width: $medium-screen) {
+      margin-top: 6rem;
+    }
+    @media screen and (max-width: $small-screen) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .text__secondary {
+    color: $color-secondary;
+  }
+
+  a {
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+
+  .btn {
+    width: max-content;
+    display: inline-block;
+    color: $color-primary;
+    background-color: $color-bg;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.4rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: $transition;
+  }
+
+  .btn:hover {
+    background-color: $color-white;
+    color: $color-primary;
+    border-color: $color-primary;
+  }
+
+  .btn__primary {
+    background-color: $color-primary;
+    color: $color-bg;
+  }
+
+  .btn__disabled{
+    background: #b5b5b5;
+    border: #b5b5b5;
+    cursor: not-allowed;
+    color: $color-bg;
+  }
+  .btn__disabled:hover{
+    background: #b5b5b5;
+    border: #b5b5b5;
+    color: $color-bg;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+}
