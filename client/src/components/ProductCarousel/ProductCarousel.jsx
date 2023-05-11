@@ -1,6 +1,7 @@
 import React from "react";
 import "./ProductCarousel.scss";
 import { Link } from "react-router-dom";
+import Card from "../Card/Card";
 
 const ProductCarousel = () => {
   const data = {
@@ -9,45 +10,31 @@ const ProductCarousel = () => {
       {
         id: 1,
         title: "Computadora 1",
-        img: "url",
+        img: "https://images.pexels.com/photos/532173/pexels-photo-532173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         price: 20,
         newPrice: 15,
       },
       {
         id: 2,
         title: "Teclado 1",
-        img: "url",
+        img: "https://images.pexels.com/photos/532173/pexels-photo-532173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         price: 300,
         newPrice: 270,
       },
       {
         id: 3,
         title: "Teclado 2",
-        img: "url",
+        img: "https://images.pexels.com/photos/532173/pexels-photo-532173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         price: 250,
         newPrice: 230,
       },
       {
         id: 4,
         title: "Teclado 3",
-        img: "url",
+        img: "https://images.pexels.com/photos/532173/pexels-photo-532173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         price: 350,
         newPrice: 320,
-      },
-      {
-        id: 5,
-        title: "Teclado 4",
-        img: "url",
-        price: 220,
-        newPrice: 210,
-      },
-      {
-        id: 6,
-        title: "Teclado 5",
-        img: "url",
-        price: 260,
-        newPrice: 230,
-      },
+      }
     ],
   };
   return (
@@ -59,15 +46,7 @@ const ProductCarousel = () => {
         </div>
         <div className="product__carousel__content">
           {data.products.map((product) => (
-            <div className="product__card" key={product.id}>
-              <img src={product.img} alt={product.title} />
-              <h4>{product.title}</h4>
-              <div className="product__Card__price">
-                <span>${product.price}</span>
-                <span>${product.newPrice}</span>
-              </div>
-              <Link to={`/product/${product.id}`}>Ver producto</Link>
-            </div>
+            <Card product={product} key={product.id} />
           ))}
         </div>
       </div>

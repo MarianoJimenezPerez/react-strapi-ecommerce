@@ -20,44 +20,16 @@
   .product__carousel__content {
     display: grid;
     margin-top: 1.2rem;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     row-gap: 2rem;
-    @media screen and (max-width: $big-screen) {
-      grid-template-columns: repeat(5, 1fr);
-    }
+    column-gap: 0.6rem;
     @media screen and (max-width: $medium-screen) {
       grid-template-columns: repeat(3, 1fr);
     }
     @media screen and (max-width: $small-screen) {
       margin-top: 1.5rem;
       grid-template-columns: repeat(2, 1fr);
-    }
-    .product__card {
-      img {
-      }
-      h4 {
-        font-size: 0.9rem;
-        font-weight: 400;
-      }
-      .product__Card__price {
-        font-size: 0.9rem;
-        color: $color-black;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.2rem;
-        :nth-child(1) {
-          text-decoration: line-through;
-        }
-        :nth-child(2) {
-          font-weight: 600;
-        }
-      }
-      a {
-        text-decoration: none;
-        color: $color-primary;
-        font-weight: 500;
-      }
     }
   }
 }
