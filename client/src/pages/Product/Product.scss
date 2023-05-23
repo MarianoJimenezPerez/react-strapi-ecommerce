@@ -2,6 +2,10 @@
 
 .product__container {
   margin: 4rem 0;
+  transition: 0.2s all ease-in;
+  &.inactive{
+    transform: translateX(-400px);
+  }
   .container {
     display: flex;
     gap: 1rem;

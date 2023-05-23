@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCarousel from "./../../components/ProductCarousel/ProductCarousel";
 import "./Product.scss";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartReducer";
 
 const Product = () => {
+  const { name } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const uploadUrl = import.meta.env.VITE_APP_UPLOAD_URL;
 
-  const images = [
-    "https://images.pexels.com/photos/50614/pexels-photo-50614.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/214487/pexels-photo-214487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  ];
+  const dispatch = useDispatch();
+
+  const images = [];
+
+  const {
+    data: product,
+    loading,
+    error,
+  } = useFetch(
+    `/products/?populate=*&filters[title][$contains]=${name.replace(/-/g, " ")}`
+  );
+  images.push(product?.[0]?.attributes?.img?.data?.attributes.url);
+  images.push(product?.[0]?.attributes?.img2?.data?.attributes.url);
+
+  const modifiedImages = images.map((image) => {
+    return uploadUrl + image;
+  });
+
   return (
     <div>
       <div className="product__container">
@@ -16,39 +37,59 @@ const Product = () => {
           <div className="product__images">
             <div className="images">
               <img
-                src={images[0]}
+                src={modifiedImages[0]}
                 alt=""
                 onClick={(e) => setSelectedImage(0)}
               />
               <img
-                src={images[1]}
+                src={modifiedImages[1]}
                 alt=""
                 onClick={(e) => setSelectedImage(1)}
               />
             </div>
             <div className="main__image">
-              <img src={images[selectedImage]} alt="" />
+              <img src={modifiedImages[selectedImage]} alt="" />
             </div>
           </div>
           <div className="product__content">
-            <h1>Product name</h1>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
-              autem adipisci voluptatum id eos obcaecati facere praesentium a
-              nesciunt quam minus minima nemo, fugiat debitis iste voluptatem
-              itaque aliquid deserunt omnis explicabo eligendi aliquam. Et
-              consequatur laborum tempore obcaecati provident.
-            </p>
+            <h1>{product?.[0]?.attributes?.title}</h1>
+            <p>{product?.[0]?.attributes?.description?.slice(0, 300)}...</p>
             <div className="product__price">
-              <span>$80</span>
-              <span>$60</span>
+              <span>${product?.[0]?.attributes?.old_price}</span>
+              <span>${product?.[0]?.attributes?.price}</span>
             </div>
-            <div className="product__quantity"></div>
-            <button className="btn btn__primary">Add to cart</button>
+            <div className="product__quantity">
+              <button
+                onClick={() =>
+                  setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                }
+              >
+                -
+              </button>
+              {quantity}
+              <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+            </div>
+            <button
+              className="btn btn__primary"
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    id: product.id,
+                    title: product[0].attributes.title,
+                    description: product[0].attributes.description,
+                    price: product[0].attributes.price,
+                    quantity: quantity,
+                    img: modifiedImages[0],
+                  })
+                )
+              }
+            >
+              Add to cart
+            </button>
           </div>
         </div>
-      </div>
-      <ProductCarousel />
+      </div>{" "}
+      {/* <ProductCarousel /> */}
     </div>
   );
 };
